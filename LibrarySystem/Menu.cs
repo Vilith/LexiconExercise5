@@ -22,7 +22,8 @@ namespace LibrarySystem
 
                     case MenuHelper.ADD:
 
-
+                        BookShelf bookShelf = new();
+                        Console.WriteLine(bookShelf.Hej());
                         break;
 
                     case MenuHelper.REMOVE:

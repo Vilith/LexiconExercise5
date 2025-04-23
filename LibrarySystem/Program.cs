@@ -24,7 +24,10 @@
             - Listor (List<Book>) för att hantera bokdata 
             - Felhantering (try/catch och rimliga felmeddelanden) 
             - Filhantering med JSON (System.Text.Json) 
-            - Tydlig, uppdelad meny med metoder för varje val                                                                                           - LINQ ska användas för att hantera collections.                                                                                                  - Lägg till validering (ex: förhindra dubbletter baserat på ISBN) - Grundläggande xUnit-tester (t.ex. för att testa inläsning, sökfunktion eller bokvalidering
+            - Tydlig, uppdelad meny med metoder för varje val 
+            - LINQ ska användas för att hantera collections.
+            - Lägg till validering (ex: förhindra dubbletter baserat på ISBN) 
+            - Grundläggande xUnit-tester (t.ex. för att testa inläsning, sökfunktion eller bokvalidering
             */
             #endregion
         }
