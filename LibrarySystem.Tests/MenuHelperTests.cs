@@ -4,14 +4,18 @@ namespace LibrarySystem.Tests
 {
     public class MenuHelperTests
     {
+        #region [AAA]
+        //ARRANGE
+        //ACT
+        //ASSERT
+        #endregion
+
         [Fact]
         public void InvalidText_ShouldReturnExpectedMessage()
         {
-            //ARRANGE
+            
             var result = MenuHelper.GetInvalidText();
-            //ACT           
-
-            //ASSERT
+                        
             Assert.Equal($"{Environment.NewLine}Input should be a number between 1-6! * for quitting", result);
             
         }
@@ -19,7 +23,7 @@ namespace LibrarySystem.Tests
         [Fact]
         public void PlaceHolder()
         {
-
+            
         }
     }
 }

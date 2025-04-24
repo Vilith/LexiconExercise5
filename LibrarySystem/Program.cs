@@ -4,7 +4,13 @@
     {
         static void Main(string[] args)
         {
-            var menu = new Menu();
+           
+            //Instansiating Library here for cleaner code.
+            //Also for the purpose of making testing more accessible
+            
+            var library = new Library();
+            var menu = new Menu(library);
+
             #region [REQUIREMENT LIST]
             /*
               Funktioner: 

@@ -33,8 +33,7 @@
         public static string GetInvalidText()
         {
             return($"{Environment.NewLine}Input should be a number between 1-6! * for quitting");
-        }
-
+        }               
 
     }
 }
