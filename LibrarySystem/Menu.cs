@@ -73,51 +73,69 @@ namespace LibrarySystem
             #endregion
         }
 
-        #region [METHODS]
+        #region [ADD BOOK]
         private void AddBookMenu()
         {
-
-            string title = Utils.PromptForInput("Title");
-            string author = Utils.PromptForInput("Author");
-            string isbn = Utils.PromptForInput("Isbn");
-            string category = Utils.PromptForInput("Category");
-
-            var book = new Book
+            try
             {
-                Title = title,
-                Author = author,
-                ISBN = isbn,
-                Category = category,
-                Available = false
-            };
+                string isbn = Utils.GetValidISBN();
+                string category = Utils.SelectGenre();
+                string title = Utils.PromptForInput("Title");
+                string author = Utils.PromptForInput("Author");                
+                                
+                var book = new Book
+                {
+                    Title = title,
+                    Author = author,
+                    ISBN = isbn,
+                    Category = category,
+                    Available = false
+                };
 
-            bookShelf.AddBook(book);
+                bookShelf.AddBook(book);
 
-            Console.WriteLine("Book has been added!");
+                Console.WriteLine("Book has been added!");
+            }
+            catch (InvalidOperationException ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Something went wrong: {e.Message}");
+            }
         }
-
+        #endregion
+        #region [REMOVE BOOK]
         private void RemoveBookMenu()
         {
             Console.WriteLine("To be implemented.");
         }
-
+        #endregion
+        #region [Placeholder]
         private void ListBooksMenu()
         {
             Console.WriteLine("To be implemented.");
         }
-
+        #endregion
+        #region [Placeholder]
         private void SearchBookMenu()
         {
             Console.WriteLine("To be implemented.");
         }
+        #endregion
+        #region [Placeholder]
         private void MarkBookMenu()
         {
             Console.WriteLine("To be implemented.");
         }
+        #endregion
+        #region [Placeholder]
         private void JsonMenu()
         {
             Console.WriteLine("To be implemented.");
         }
         #endregion
+
     }
 }

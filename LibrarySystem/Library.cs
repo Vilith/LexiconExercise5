@@ -10,8 +10,16 @@ namespace LibrarySystem
 
         public void AddBook(Book book)
         {
+          /*Lambda so this is basically:
+            
+              foreach (Book b in books)
+              { if (b.ISBN == book.ISBN)
+              throw new InvalidOperationException("Book with this ISBN already exists."); */
+
             if (books.Any(b => b.ISBN == book.ISBN))
                 throw new InvalidOperationException("Book with this ISBN already exists.");
+
+            books.Add(book);
         }
         
         public bool RemoveBook(string identifier)
