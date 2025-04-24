@@ -8,22 +8,30 @@ namespace LibrarySystem
         private bool isRunning = true;
         private Library bookShelf;
         #endregion
-        
+
         public Menu(Library library)
         {
             bookShelf = library;
-            RunMenu(); 
+            RunMenu();
         }
 
         #region [MENU]
-        private void RunMenu() 
+        private void RunMenu()
         {
-            
+
             do
             {
                 MenuHelper.ShowMenu();
                 string input = Console.ReadLine();
-                               
+
+                if (string.IsNullOrEmpty(input) || !MenuHelper.IsValidChoice(input))
+
+                {
+                    MenuHelper.GetStandardErrorMessage();
+                    continue;
+                }
+
+
                 switch (input)
                 {
 
@@ -39,22 +47,22 @@ namespace LibrarySystem
 
                     case MenuHelper.LIST:
 
-                        ListBooksMenu();                        
+                        ListBooksMenu();
                         break;
 
                     case MenuHelper.SEARCH:
 
-                        SearchBookMenu();                        
+                        SearchBookMenu();
                         break;
 
                     case MenuHelper.MARK:
 
-                        MarkBookMenu();                        
+                        MarkBookMenu();
                         break;
 
                     case MenuHelper.JSON:
-                                                
-                        JsonMenu();                        
+
+                        JsonMenu();
                         break;
 
                     case MenuHelper.QUIT:
@@ -65,7 +73,7 @@ namespace LibrarySystem
                     default:
 
                         MenuHelper.GetInvalidText();
-                        break;                
+                        break;
 
                 }
             }
@@ -81,8 +89,8 @@ namespace LibrarySystem
                 string isbn = Utils.GetValidISBN();
                 string category = Utils.SelectGenre();
                 string title = Utils.PromptForInput("Title");
-                string author = Utils.PromptForInput("Author");                
-                                
+                string author = Utils.PromptForInput("Author");
+
                 var book = new Book
                 {
                     Title = title,
@@ -110,6 +118,23 @@ namespace LibrarySystem
         private void RemoveBookMenu()
         {
             Console.WriteLine("To be implemented.");
+            MenuHelper.ShowRemoveBookMenu();
+            var input = Console.ReadLine();
+
+            switch (input)
+            {
+                case "1":
+                    string isbn = Utils.PromptForInput("ISBN of book to remove:");
+                    bookShelf.RemoveBook(); //Placeholder for knowing where i am.
+                    break;
+
+                case "2":
+                    break;
+
+                default:
+                    break;
+            }
+
         }
         #endregion
         #region [Placeholder]

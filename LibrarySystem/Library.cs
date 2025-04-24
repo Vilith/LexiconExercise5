@@ -22,10 +22,9 @@ namespace LibrarySystem
             books.Add(book);
         }
         
-        public bool RemoveBook(string identifier)
+        public void RemoveBook()
         {
-            Console.WriteLine("Empty for now");
-            return true;
+            Console.WriteLine("Empty for now");            
         }
         /* 
         public void SaveToFile(string path)
