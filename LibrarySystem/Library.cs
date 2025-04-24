@@ -8,50 +8,74 @@ namespace LibrarySystem
 
         private List<Book> books = new();
 
+        #region [ADD BOOK]
         public void AddBook(Book book)
         {
-          /*Lambda so this is basically:
-            
-              foreach (Book b in books)
-              { if (b.ISBN == book.ISBN)
-              throw new InvalidOperationException("Book with this ISBN already exists."); */
+            /*Lambda so this is basically:
+
+                foreach (Book b in books)
+                { if (b.ISBN == book.ISBN)
+                throw new InvalidOperationException("Book with this ISBN already exists."); */
 
             if (books.Any(b => b.ISBN == book.ISBN))
                 throw new InvalidOperationException("Book with this ISBN already exists.");
 
             books.Add(book);
         }
-        
-        public void RemoveBook()
+        #endregion
+
+        //public void RemoveBook() //TODO - Remove when i'm confident at wich way to approach
+        //{
+        //    Console.WriteLine("Empty for now");            
+        //}
+        #region [REMOVE BOOK]
+        public void RemoveBookByISBN(string isbn)
         {
-            Console.WriteLine("Empty for now");            
+            var bookToRemove = books.FirstOrDefault(b => b.ISBN == isbn);
+
+            if (bookToRemove == null)
+                throw new InvalidOperationException("Found no book with provided ISBN.");
+
+            books.Remove(bookToRemove);
         }
+
+        public void RemoveBookByTitle(string title)
+        {
+            var bookToRemove = books.FirstOrDefault(b => b.Title.Equals(title, StringComparison.OrdinalIgnoreCase));
+
+            if (bookToRemove == null)
+                throw new InvalidOperationException("Found no book with provided Title");
+
+            books.Remove(bookToRemove);
+        }
+        #endregion
+
+        public List<Book> GetAllBooksSortedByTitle()
+        {
+            return books.OrderBy(b => b.Title).ToList();
+        }
+
+        //Playing around with how to setup json. Knacking code is how you learn right?
+
         /* 
         public void SaveToFile(string path)
         {
-            var json = JsonSerializer.Serialize(books);
-            File.WriteAllText(path, json);
+        var json = JsonSerializer.Serialize(books);
+        File.WriteAllText(path, json);
         }
-
+        
         public void LoadFromFile(string path)
         {
-            if (File.Exists(path))
-            {
-                var json = File.ReadAllText(path);
-                books = JsonSerializer.Deserialize<List<Book>>(json);
-            }
+        if (File.Exists(path))
+        {
+        var json = File.ReadAllText(path);
+        books = JsonSerializer.Deserialize<List<Book>>(json);
+        }
         }*/
 
         //File.WriteAllText("library.json", JsonSerializer.Serialize(Library));
 
         //Library lib = JsonSerializer.Deserialize<Library>(File.ReadAllText("library.json"));
 
-
-        public string Hej() //Placeholder for now. It will be removed
-        {
-            string hej = "You're currently looking in the bookshelf";
-
-            return hej;
-        }
     }
 }

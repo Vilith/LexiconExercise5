@@ -117,7 +117,7 @@ namespace LibrarySystem
         #region [REMOVE BOOK]
         private void RemoveBookMenu()
         {
-            Console.WriteLine("To be implemented.");
+            
             MenuHelper.ShowRemoveBookMenu();
             var input = Console.ReadLine();
 
@@ -125,22 +125,46 @@ namespace LibrarySystem
             {
                 case "1":
                     string isbn = Utils.PromptForInput("ISBN of book to remove:");
-                    bookShelf.RemoveBook(); //Placeholder for knowing where i am.
+                    bookShelf.RemoveBookByISBN(isbn);
+                    Console.WriteLine("Book removed successfully."); //Not Dry
                     break;
 
                 case "2":
+                    string title = Utils.PromptForInput("Title of book to remove:");
+                    bookShelf.RemoveBookByTitle(title);
+                    Console.WriteLine("Book removed successfully."); //Not Dry
                     break;
 
                 default:
+                    Console.WriteLine("Invalid selection.");
                     break;
             }
 
         }
         #endregion
-        #region [Placeholder]
+        #region [LIST BOOKS]
         private void ListBooksMenu()
         {
-            Console.WriteLine("To be implemented.");
+            var allBooks = bookShelf.GetAllBooksSortedByTitle();
+
+            if (!allBooks.Any())
+            {
+                Console.WriteLine("Ehrmegerd - The library is empty.");
+                return;
+            }
+
+            Console.WriteLine($"{Environment.NewLine}{"Title", -30} {"Author", -20} " +
+                $"{"ISBN", -15} {"Category", -15} {"Available", -10}");
+
+            Console.WriteLine(new string('-', 90));
+            //Implementation in progress
+            foreach (var book in allBooks)
+            {
+                Console.ForegroundColor = ConsoleColor.DarkRed; //TODO - Remove before done.
+                Console.WriteLine($"{book.Title, -30} {book.Author, -20} {book.ISBN, -15} " +
+                    $"{book.Category, -15} {book.Available, -10}");
+                Console.ResetColor(); //TODO - Remove before done.
+            }
         }
         #endregion
         #region [Placeholder]

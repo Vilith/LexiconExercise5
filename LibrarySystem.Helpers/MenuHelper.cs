@@ -17,7 +17,14 @@
         public const string TITLE = "2. Title";
         public const string PICK = "Make a selection: ";
 
-        //Constants for all parts
+        //Constants for ListBooksMenu
+        public const string TITLELIST = "1";
+        public const string AUTHORLIST = "2";
+        public const string ISBNLIST = "3";
+        public const string CATEGORYLIST = "4";
+        public const string AVAILABILITYLIST = "5";
+        
+        //Constants for all menus - quitting current menu 
         public const string QUIT = "*";
 
 
@@ -61,6 +68,18 @@
             string[] validChoices = {ADD, REMOVE, LIST, SEARCH, MARK, JSON, ISBN, TITLE, PICK, QUIT};
 
             return validChoices.Contains(input);
+        }
+
+        public static void ShowListBooksOptions()
+        {
+            Console.WriteLine($"{Environment.NewLine}Sort by:" +
+                $"{Environment.NewLine}{TITLELIST} Title" +
+                $"{Environment.NewLine}{AUTHORLIST} Author" +
+                $"{Environment.NewLine}{ISBNLIST} ISBN" +
+                $"{Environment.NewLine}{CATEGORYLIST} Category" +
+                $"{Environment.NewLine}{AVAILABILITYLIST} Availability" +
+                $"{Environment.NewLine}{QUIT} Back to main menu" );
+                
         }
         
     }
