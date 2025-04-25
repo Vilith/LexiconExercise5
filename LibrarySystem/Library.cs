@@ -114,7 +114,16 @@ namespace LibrarySystem
         #endregion
 
         #region [SAVE AND READ]
+        public void SaveToFile(string path)
+        {
+            var json = JsonSerializer.Serialize(books);
+            File.WriteAllText(path, json);
+        }
 
+        public void LoadFromFile()
+        {
+
+        }
         #endregion
 
         //Playing around with how to setup json. Knacking code is how you learn right?

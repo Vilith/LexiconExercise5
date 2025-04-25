@@ -18,9 +18,9 @@
             - Lägg till en bok (titel, författare, ISBN, kategori)          *
             - Ta bort en bok (via titel eller ISBN)                         *
             - Lista alla böcker (sorterade t.ex. efter titel) med LINQ      *
-            - Sök efter bok (titel eller författare) med LINQ 
-            - Markera bok som "utlånad" eller "tillgänglig" 
-            - Spara och läsa in biblioteket från fil (JSON) 
+            - Sök efter bok (titel eller författare) med LINQ               *
+            - Markera bok som "utlånad" eller "tillgänglig"                 *
+            - Spara och läsa in biblioteket från fil (JSON)                 
             
 -------------------------------------------------------------------------------------
 

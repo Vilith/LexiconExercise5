@@ -1,5 +1,6 @@
 ﻿using LibrarySystem.Enums;
 using LibrarySystem.Helpers;
+using System.Text.Json;
 
 namespace LibrarySystem
 {
@@ -279,6 +280,9 @@ namespace LibrarySystem
         private void JsonMenu()
         {
             //Implementation in progress
+            Library lib = JsonSerializer.Deserialize<Library>(File.ReadAllText("library.json"));
+
+            File.WriteAllText("library.json", JsonSerializer.Serialize(Library));
         }
         #endregion
 
