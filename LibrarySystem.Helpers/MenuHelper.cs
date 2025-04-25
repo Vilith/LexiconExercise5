@@ -23,7 +23,12 @@
         public const string ISBNLIST = "3";
         public const string CATEGORYLIST = "4";
         public const string AVAILABILITYLIST = "5";
-        
+
+        //Constants for SearchBookMenu
+        public const string TITLESEARCH = "1";
+        public const string AUTHORSEARCH = "2";
+
+
         //Constants for all menus - quitting current menu 
         public const string QUIT = "*";
 
@@ -80,6 +85,14 @@
                 $"{Environment.NewLine}{AVAILABILITYLIST}. Availability" +
                 $"{Environment.NewLine}{QUIT}. Back to main menu" );
                 
+        }
+
+        public static void ShowSearchMenu()
+        {
+            Console.WriteLine($"{Environment.NewLine}Search by: " +
+                $"{Environment.NewLine}{TITLESEARCH} Title" +
+                $"{Environment.NewLine}{AUTHORSEARCH} Author" +
+                $"{Environment.NewLine}{QUIT} Back to main menu");
         }
         
     }

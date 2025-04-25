@@ -47,6 +47,7 @@ namespace LibrarySystem
         }
         #endregion
 
+        #region [LIST BOOK]
         public List<Book> GetAllBooksSortedBySelection(SortOption option)
         {
             return option switch
@@ -79,6 +80,42 @@ namespace LibrarySystem
         //{
         //    return books.OrderBy(b => b.Available).ToList();
         //}
+        #endregion
+
+        #region [SEARCH]
+        public List<Book> SearchByTitle(string title)
+        {
+            return books
+                .Where(b => b.Title.Contains(title, StringComparison.OrdinalIgnoreCase))
+                .ToList();
+
+        }
+
+        public List<Book> SearchByAuthor(string author)
+        {
+            return books
+                .Where(b => b.Author.Contains(author, StringComparison.OrdinalIgnoreCase))
+                .ToList();
+
+        }
+
+        #endregion
+
+        #region [AVAILABLE OR NOT]
+        public void AvailableOrNot(string isbn)
+        {
+            var book = books.FirstOrDefault(b => b.ISBN == isbn); ;
+
+            if (book == null)
+                throw new InvalidOperationException("No book could be found with provided ISBN.");
+
+            book.Available = !book.Available;
+        }
+        #endregion
+
+        #region [SAVE AND READ]
+
+        #endregion
 
         //Playing around with how to setup json. Knacking code is how you learn right?
 

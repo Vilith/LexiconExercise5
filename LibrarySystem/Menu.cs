@@ -5,11 +5,10 @@ namespace LibrarySystem
 {
     internal class Menu
     {
-        #region [isRunning]
+        #region [VARIABLES]
         private bool isRunning = true;
         private Library bookShelf;
         #endregion
-
 
         public Menu(Library library)
         {
@@ -79,9 +78,9 @@ namespace LibrarySystem
 
                 }
             }
-            while (isRunning);
-            #endregion
+            while (isRunning);            
         }
+        #endregion
 
         #region [ADD BOOK]
         private void AddBookMenu()
@@ -116,6 +115,7 @@ namespace LibrarySystem
             }
         }
         #endregion
+
         #region [REMOVE BOOK]
         private void RemoveBookMenu()
         {
@@ -144,6 +144,7 @@ namespace LibrarySystem
 
         }
         #endregion
+
         #region [LIST BOOKS]
         private void ListBooksMenu()
         {
@@ -156,28 +157,28 @@ namespace LibrarySystem
                 switch (input)
                 {
                     case "1":
-                        option = SortOption.Title;
-                        //sortedBooks = bookShelf.GetAllBooksSortedByTitle();
+
+                        option = SortOption.Title;                        
                         break;
 
                     case "2":
-                        option = SortOption.Author;
-                        //sortedBooks = bookShelf.GetAllBooksSortedByAuthor();
+
+                        option = SortOption.Author;                        
                         break;
 
                     case "3":
-                        option = SortOption.ISBN;
-                        //sortedBooks = bookShelf.GetAllBooksSortedByISBN();
+
+                        option = SortOption.ISBN;                        
                         break;
 
                     case "4":
-                        option = SortOption.Category;
-                        //sortedBooks = bookShelf.GetAllBooksSortedByCategory();
+
+                        option = SortOption.Category;                        
                         break;
 
                     case "5":
-                        option = SortOption.Available;
-                        //sortedBooks = bookShelf.GetAllBooksSortedByAvailable();
+                        
+                        option = SortOption.Available;                        
                         break;
 
                     case "*":
@@ -211,22 +212,73 @@ namespace LibrarySystem
             while (true);                        
         }
         #endregion
-        #region [Placeholder]
+
+        #region [SEARCH]
         private void SearchBookMenu()
         {
-            Console.WriteLine("To be implemented.");
+            MenuHelper.ShowSearchMenu();
+            var input = Console.ReadLine();
+            List<Book> results = new();
+
+            switch (input)
+            {
+                case "1":
+
+                    string title = Utils.PromptForInput("Enter book title");
+                    results = bookShelf.SearchByTitle(title);
+                    break;
+
+                case "2":
+
+                    string author = Utils.PromptForInput("Enter name of author");
+                    results = bookShelf.SearchByAuthor(author);
+                    break;
+
+                case "*":
+
+                    return;
+
+                default:
+                    Console.WriteLine("Invalid input my man");
+                    break;
+
+            }
+
+            if (!results.Any())
+            {
+                Console.WriteLine("No matches were found.");
+                return;
+            }
+
+            Console.WriteLine($"{Environment.NewLine}{"Title",-30} {"Author",-20} " +
+                    $"{"ISBN",-15} {"Category",-15} {"Available",-10}");
+            Console.WriteLine(new string('-', 90));
+
+            foreach (var books in results)
+            {
+                Console.ForegroundColor = ConsoleColor.DarkMagenta; //TODO - Remove before done.
+                Console.WriteLine($"{books.Title,-30} {books.Author,-20} {books.ISBN,-15} " +
+                    $"{books.Category,-15} {books.Available,-10}");
+                Console.ResetColor(); //TODO - Remove before done.
+            }
         }
         #endregion
-        #region [Placeholder]
+
+        #region [AVAILABLE OR NOT]
         private void MarkBookMenu()
         {
-            Console.WriteLine("To be implemented.");
+            string isbn = Utils.PromptForInput("Enter the books ISBN to mark it as availble or unavailable.");
+            bookShelf.AvailableOrNot(isbn);
+
+            Console.WriteLine("The books availability status has been updated.");
+
         }
         #endregion
-        #region [Placeholder]
+
+        #region [SAVE & READ]
         private void JsonMenu()
         {
-            Console.WriteLine("To be implemented.");
+            //Implementation in progress
         }
         #endregion
 
