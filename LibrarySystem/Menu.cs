@@ -1,4 +1,5 @@
-﻿using LibrarySystem.Helpers;
+﻿using LibrarySystem.Enums;
+using LibrarySystem.Helpers;
 
 namespace LibrarySystem
 {
@@ -8,6 +9,7 @@ namespace LibrarySystem
         private bool isRunning = true;
         private Library bookShelf;
         #endregion
+
 
         public Menu(Library library)
         {
@@ -117,7 +119,7 @@ namespace LibrarySystem
         #region [REMOVE BOOK]
         private void RemoveBookMenu()
         {
-            
+
             MenuHelper.ShowRemoveBookMenu();
             var input = Console.ReadLine();
 
@@ -145,26 +147,68 @@ namespace LibrarySystem
         #region [LIST BOOKS]
         private void ListBooksMenu()
         {
-            var allBooks = bookShelf.GetAllBooksSortedByTitle();
-
-            if (!allBooks.Any())
+            do
             {
-                Console.WriteLine("Ehrmegerd - The library is empty.");
-                return;
-            }
+                MenuHelper.ShowListBooksOptions();
+                var input = Console.ReadLine();
+                SortOption option = SortOption.Title;
 
-            Console.WriteLine($"{Environment.NewLine}{"Title", -30} {"Author", -20} " +
-                $"{"ISBN", -15} {"Category", -15} {"Available", -10}");
+                switch (input)
+                {
+                    case "1":
+                        option = SortOption.Title;
+                        //sortedBooks = bookShelf.GetAllBooksSortedByTitle();
+                        break;
 
-            Console.WriteLine(new string('-', 90));
-            //Implementation in progress
-            foreach (var book in allBooks)
-            {
-                Console.ForegroundColor = ConsoleColor.DarkRed; //TODO - Remove before done.
-                Console.WriteLine($"{book.Title, -30} {book.Author, -20} {book.ISBN, -15} " +
-                    $"{book.Category, -15} {book.Available, -10}");
-                Console.ResetColor(); //TODO - Remove before done.
-            }
+                    case "2":
+                        option = SortOption.Author;
+                        //sortedBooks = bookShelf.GetAllBooksSortedByAuthor();
+                        break;
+
+                    case "3":
+                        option = SortOption.ISBN;
+                        //sortedBooks = bookShelf.GetAllBooksSortedByISBN();
+                        break;
+
+                    case "4":
+                        option = SortOption.Category;
+                        //sortedBooks = bookShelf.GetAllBooksSortedByCategory();
+                        break;
+
+                    case "5":
+                        option = SortOption.Available;
+                        //sortedBooks = bookShelf.GetAllBooksSortedByAvailable();
+                        break;
+
+                    case "*":
+                        
+                        return;
+
+                    default:
+                        Console.WriteLine("Wrong input!");
+                        break;
+
+                }
+
+                var sortedBooks = bookShelf.GetAllBooksSortedBySelection(option);
+
+                if (!sortedBooks.Any())
+                {
+                    Console.WriteLine("Library seems to be empty.");
+                }
+                Console.WriteLine($"{Environment.NewLine}{"Title",-30} {"Author",-20} " +
+                    $"{"ISBN",-15} {"Category",-15} {"Available",-10}");
+                Console.WriteLine(new string('-', 90));
+
+                foreach (var book in sortedBooks)
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkRed; //TODO - Remove before done.
+                    Console.WriteLine($"{book.Title,-30} {book.Author,-20} {book.ISBN,-15} " +
+                        $"{book.Category,-15} {book.Available,-10}");
+                    Console.ResetColor(); //TODO - Remove before done.
+                }
+            } 
+            while (true);                        
         }
         #endregion
         #region [Placeholder]

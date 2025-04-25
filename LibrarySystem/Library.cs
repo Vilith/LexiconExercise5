@@ -1,5 +1,6 @@
-﻿using System.Security.Cryptography.X509Certificates;
+﻿using LibrarySystem.Enums;
 using System.Text.Json;
+using static LibrarySystem.Menu;
 
 namespace LibrarySystem
 {
@@ -24,10 +25,6 @@ namespace LibrarySystem
         }
         #endregion
 
-        //public void RemoveBook() //TODO - Remove when i'm confident at wich way to approach
-        //{
-        //    Console.WriteLine("Empty for now");            
-        //}
         #region [REMOVE BOOK]
         public void RemoveBookByISBN(string isbn)
         {
@@ -50,10 +47,38 @@ namespace LibrarySystem
         }
         #endregion
 
-        public List<Book> GetAllBooksSortedByTitle()
+        public List<Book> GetAllBooksSortedBySelection(SortOption option)
         {
-            return books.OrderBy(b => b.Title).ToList();
+            return option switch
+            {
+                SortOption.Title => books.OrderBy(b => b.Title).ToList(),
+                SortOption.Author => books.OrderBy(b => b.Author).ToList(),
+                SortOption.ISBN => books.OrderBy(b => b.ISBN).ToList(),
+                SortOption.Category => books.OrderBy(b => b.Category).ToList(),
+                SortOption.Available => books.OrderBy(b => b.Available).ToList(),
+                _ => books.ToList()
+            };
         }
+        //public List<Book> GetAllBooksSortedByTitle()
+        //{
+        //    return books.OrderBy(b => b.Title).ToList();
+        //}
+        //public List<Book> GetAllBooksSortedByAuthor()
+        //{
+        //    return books.OrderBy(b => b.Author).ToList();
+        //}
+        //public List<Book> GetAllBooksSortedByISBN()
+        //{
+        //    return books.OrderBy(b => b.ISBN).ToList();
+        //}
+        //public List<Book> GetAllBooksSortedByCategory()
+        //{
+        //    return books.OrderBy(b => b.Category).ToList();
+        //}
+        //public List<Book> GetAllBooksSortedByAvailable()
+        //{
+        //    return books.OrderBy(b => b.Available).ToList();
+        //}
 
         //Playing around with how to setup json. Knacking code is how you learn right?
 

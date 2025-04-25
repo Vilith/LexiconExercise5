@@ -32,7 +32,7 @@
         //Method to call the menu
         public static void ShowMenu()
         {
-            Console.WriteLine($"{Environment.NewLine}|          MENU          |" +
+            Console.WriteLine($"{Environment.NewLine}-|          MENU          |-" +
                 $"{Environment.NewLine}{ADD}| Add book" +
                 $"{Environment.NewLine}{REMOVE}| Return book" +
                 $"{Environment.NewLine}{LIST}| List books" +
@@ -73,12 +73,12 @@
         public static void ShowListBooksOptions()
         {
             Console.WriteLine($"{Environment.NewLine}Sort by:" +
-                $"{Environment.NewLine}{TITLELIST} Title" +
-                $"{Environment.NewLine}{AUTHORLIST} Author" +
-                $"{Environment.NewLine}{ISBNLIST} ISBN" +
-                $"{Environment.NewLine}{CATEGORYLIST} Category" +
-                $"{Environment.NewLine}{AVAILABILITYLIST} Availability" +
-                $"{Environment.NewLine}{QUIT} Back to main menu" );
+                $"{Environment.NewLine}{TITLELIST}. Title" +
+                $"{Environment.NewLine}{AUTHORLIST}. Author" +
+                $"{Environment.NewLine}{ISBNLIST}. ISBN" +
+                $"{Environment.NewLine}{CATEGORYLIST}. Category" +
+                $"{Environment.NewLine}{AVAILABILITYLIST}. Availability" +
+                $"{Environment.NewLine}{QUIT}. Back to main menu" );
                 
         }
         
