@@ -1,4 +1,5 @@
 ﻿using LibrarySystem.Enums;
+using System.Runtime.CompilerServices;
 using System.Text.Json;
 using static LibrarySystem.Menu;
 
@@ -114,14 +115,40 @@ namespace LibrarySystem
         #endregion
 
         #region [SAVE AND READ]
-        public void SaveToFile(string path)
+        public void SaveToFile(string filePath)
         {
             var json = JsonSerializer.Serialize(books);
-            File.WriteAllText(path, json);
+            File.WriteAllText(filePath, json);
+
         }
 
-        public void LoadFromFile()
+        public void LoadFromFile(string filePath)
         {
+            if (!File.Exists(filePath))
+            {
+                Console.WriteLine("File not found!");
+                return;
+            }
+
+            try
+            {
+                var json = File.ReadAllText(filePath);
+                var loadedBooks = JsonSerializer.Deserialize<List<Book>>(json);
+
+                if (loadedBooks != null)
+                {
+                    books = loadedBooks;
+                    Console.WriteLine("File loaded");
+                }
+                else
+                {
+                    Console.WriteLine("File empty?");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error loading file: {ex.Message}");
+            }
 
         }
         #endregion

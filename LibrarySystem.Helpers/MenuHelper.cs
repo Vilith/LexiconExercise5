@@ -28,6 +28,9 @@
         public const string TITLESEARCH = "1";
         public const string AUTHORSEARCH = "2";
 
+        //Constants for JsonMenu
+        public const string SAVE = "1";
+        public const string LOAD = "2";
 
         //Constants for all menus - quitting current menu 
         public const string QUIT = "*";
@@ -92,6 +95,14 @@
             Console.WriteLine($"{Environment.NewLine}Search by: " +
                 $"{Environment.NewLine}{TITLESEARCH} Title" +
                 $"{Environment.NewLine}{AUTHORSEARCH} Author" +
+                $"{Environment.NewLine}{QUIT} Back to main menu");
+        }
+
+        public static void ShowJsonMenu()
+        {
+                Console.WriteLine($"{Environment.NewLine}What would you like to do:" +
+                $"{Environment.NewLine}{SAVE} Save to JSON" +
+                $"{Environment.NewLine}{LOAD} Load from JSON" +
                 $"{Environment.NewLine}{QUIT} Back to main menu");
         }
         

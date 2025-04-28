@@ -79,7 +79,7 @@ namespace LibrarySystem
 
                 }
             }
-            while (isRunning);            
+            while (isRunning);
         }
         #endregion
 
@@ -158,32 +158,26 @@ namespace LibrarySystem
                 switch (input)
                 {
                     case "1":
-
-                        option = SortOption.Title;                        
+                        option = SortOption.Title;
                         break;
 
                     case "2":
-
-                        option = SortOption.Author;                        
+                        option = SortOption.Author;
                         break;
 
                     case "3":
-
-                        option = SortOption.ISBN;                        
+                        option = SortOption.ISBN;
                         break;
 
                     case "4":
-
-                        option = SortOption.Category;                        
+                        option = SortOption.Category;
                         break;
 
                     case "5":
-                        
-                        option = SortOption.Available;                        
+                        option = SortOption.Available;
                         break;
 
                     case "*":
-                        
                         return;
 
                     default:
@@ -209,8 +203,8 @@ namespace LibrarySystem
                         $"{book.Category,-15} {book.Available,-10}");
                     Console.ResetColor(); //TODO - Remove before done.
                 }
-            } 
-            while (true);                        
+            }
+            while (true);
         }
         #endregion
 
@@ -279,12 +273,28 @@ namespace LibrarySystem
         #region [SAVE & READ]
         private void JsonMenu()
         {
-            //Implementation in progress
-            Library lib = JsonSerializer.Deserialize<Library>(File.ReadAllText("library.json"));
+            MenuHelper.ShowJsonMenu();
+            var input = Console.ReadLine();
+            string filePath = "library.json";
 
-            File.WriteAllText("library.json", JsonSerializer.Serialize(Library));
+            switch (input)
+            {
+                case "1":
+                    bookShelf.SaveToFile(filePath);
+                    break;
+
+                case "2":
+                    bookShelf.LoadFromFile(filePath);
+                    break;
+
+                case "*":
+                    return;
+
+                default:
+                    Console.WriteLine("Wring onput"); //Yes this spelling error was made on purpose
+                    break;
+            }            
         }
         #endregion
-
     }
 }
