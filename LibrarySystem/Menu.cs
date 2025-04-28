@@ -20,7 +20,6 @@ namespace LibrarySystem
         #region [MENU]
         private void RunMenu()
         {
-
             do
             {
                 MenuHelper.ShowMenu();
@@ -33,50 +32,40 @@ namespace LibrarySystem
                     continue;
                 }
 
-
                 switch (input)
                 {
 
                     case MenuHelper.ADD:
-
                         AddBookMenu();
                         break;
 
                     case MenuHelper.REMOVE:
-
                         RemoveBookMenu();
                         break;
 
                     case MenuHelper.LIST:
-
                         ListBooksMenu();
                         break;
 
                     case MenuHelper.SEARCH:
-
                         SearchBookMenu();
                         break;
 
                     case MenuHelper.MARK:
-
                         MarkBookMenu();
                         break;
 
                     case MenuHelper.JSON:
-
                         JsonMenu();
                         break;
 
                     case MenuHelper.QUIT:
-
                         isRunning = false;
                         break;
 
                     default:
-
                         MenuHelper.GetInvalidText();
                         break;
-
                 }
             }
             while (isRunning);
@@ -88,6 +77,7 @@ namespace LibrarySystem
         {
             try
             {
+                //string isbn = Console.ReadLine();
                 string isbn = Utils.GetValidISBN();
                 string category = Utils.SelectGenre();
                 string title = Utils.PromptForInput("Title");
@@ -99,7 +89,7 @@ namespace LibrarySystem
                     Author = author,
                     ISBN = isbn,
                     Category = category,
-                    Available = false
+                    Available = true
                 };
 
                 bookShelf.AddBook(book);

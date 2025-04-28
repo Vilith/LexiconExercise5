@@ -116,10 +116,11 @@ namespace LibrarySystem
 
         #region [SAVE AND READ]
         public void SaveToFile(string filePath)
-        {
-            var json = JsonSerializer.Serialize(books);
+        {            
+            var options = new JsonSerializerOptions { WriteIndented = true };
+            var json = JsonSerializer.Serialize(books, options);
             File.WriteAllText(filePath, json);
-
+            Console.WriteLine("File saved!");
         }
 
         public void LoadFromFile(string filePath)

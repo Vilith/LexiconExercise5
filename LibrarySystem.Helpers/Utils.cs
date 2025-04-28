@@ -7,9 +7,7 @@ using System.Threading.Tasks;
 namespace LibrarySystem.Helpers
 {
     public static class Utils
-    {
-
-        
+    {        
         public static string PromptForInput(string fieldName)
         {
             Console.WriteLine($"{fieldName}: ");
@@ -46,7 +44,7 @@ namespace LibrarySystem.Helpers
             "Fantasy",
             "Science Fiction",
             "Biography",
-            "Childrens book"
+            "Childrens Book"
         };
 
         public static void ShowGenres()
