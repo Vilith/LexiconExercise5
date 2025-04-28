@@ -1,6 +1,9 @@
-﻿using LibrarySystem.Enums;
-using LibrarySystem.Helpers;
-using System.Text.Json;
+﻿using LibrarySystem.Helpers;
+using LibrarySystem.Shared;
+
+//using LibrarySystem.Shared;
+//using System.Text.Json;
+using SortOption = LibrarySystem.Shared.SortOption;
 
 namespace LibrarySystem
 {
@@ -22,50 +25,105 @@ namespace LibrarySystem
         {
             do
             {
-                MenuHelper.ShowMenu();
+                var menuOptions = new Dictionary<MenuOption, string>
+                {
+                    { MenuOption.AddBook, "Add Book" },
+                    { MenuOption.RemoveBook, "Return Book" },
+                    { MenuOption.ListBooks, "List Books" },
+                    { MenuOption.SearchBook, "Search Books" },
+                    { MenuOption.MarkBook, "Available/Unavailabe" },
+                    { MenuOption.JsonMenu, "JSON" }
+                };
+                MenuHelper.ShowMenu(menuOptions);
+
+                //MenuHelper.ShowMenu();
                 string input = Console.ReadLine();
 
-                if (string.IsNullOrEmpty(input) || !MenuHelper.IsValidChoice(input))
-
+                if (string.IsNullOrEmpty(input))
                 {
-                    MenuHelper.GetStandardErrorMessage();
+                    Console.WriteLine(MenuHelper.GetStandardErrorMessage());
                     continue;
                 }
 
-                switch (input)
+                if (input == MenuHelper.QUIT)
                 {
+                    isRunning = false;
+                    break;
+                }
 
-                    case MenuHelper.ADD:
+                if (!Enum.TryParse(input, out MenuOption selectedOption))
+                {
+                    Console.WriteLine(MenuHelper.GetInvalidText());
+                    continue;
+                }
+
+                //if (string.IsNullOrEmpty(input) || !MenuHelper.IsValidChoice<MenuOption>(input))
+                //{
+                //    MenuHelper.GetStandardErrorMessage();
+                //    continue;
+                //}
+
+                switch (selectedOption)
+                {
+                    case  MenuOption.AddBook:
                         AddBookMenu();
                         break;
 
-                    case MenuHelper.REMOVE:
+                    case MenuOption.RemoveBook:
                         RemoveBookMenu();
                         break;
 
-                    case MenuHelper.LIST:
+                    case MenuOption.ListBooks: 
                         ListBooksMenu();
                         break;
 
-                    case MenuHelper.SEARCH:
+                    case MenuOption.SearchBook:
                         SearchBookMenu();
                         break;
 
-                    case MenuHelper.MARK:
+                    case MenuOption.MarkBook:
                         MarkBookMenu();
                         break;
 
-                    case MenuHelper.JSON:
+                    case MenuOption.JsonMenu:
                         JsonMenu();
-                        break;
-
-                    case MenuHelper.QUIT:
-                        isRunning = false;
                         break;
 
                     default:
                         MenuHelper.GetInvalidText();
                         break;
+
+                        //case MenuHelper.ADD:
+                            //AddBookMenu();
+                            //break;
+
+                        //case MenuHelper.REMOVE:
+                            //RemoveBookMenu();
+                            //break;
+
+                        //case MenuHelper.LIST:
+                            //ListBooksMenu();
+                            //break;
+
+                        //case MenuHelper.SEARCH:
+                            //SearchBookMenu();
+                            //break;
+
+                        //case MenuHelper.MARK:
+                            //MarkBookMenu();
+                            //break;
+
+                        //case MenuHelper.JSON:
+                            //JsonMenu();
+                            //break;
+
+                        //case MenuHelper.QUIT:
+                            //isRunning = false;
+                            //break;
+
+                        //default:
+                            //MenuHelper.GetInvalidText();
+                            //break;
                 }
             }
             while (isRunning);

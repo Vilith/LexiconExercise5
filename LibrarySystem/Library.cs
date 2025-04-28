@@ -1,4 +1,4 @@
-﻿using LibrarySystem.Enums;
+﻿using LibrarySystem.Shared;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
 using static LibrarySystem.Menu;
@@ -7,7 +7,6 @@ namespace LibrarySystem
 {
     class Library
     {
-
         private List<Book> books = new();
 
         #region [ADD BOOK]
@@ -61,26 +60,6 @@ namespace LibrarySystem
                 _ => books.ToList()
             };
         }
-        //public List<Book> GetAllBooksSortedByTitle()
-        //{
-        //    return books.OrderBy(b => b.Title).ToList();
-        //}
-        //public List<Book> GetAllBooksSortedByAuthor()
-        //{
-        //    return books.OrderBy(b => b.Author).ToList();
-        //}
-        //public List<Book> GetAllBooksSortedByISBN()
-        //{
-        //    return books.OrderBy(b => b.ISBN).ToList();
-        //}
-        //public List<Book> GetAllBooksSortedByCategory()
-        //{
-        //    return books.OrderBy(b => b.Category).ToList();
-        //}
-        //public List<Book> GetAllBooksSortedByAvailable()
-        //{
-        //    return books.OrderBy(b => b.Available).ToList();
-        //}
         #endregion
 
         #region [SEARCH]
@@ -89,7 +68,6 @@ namespace LibrarySystem
             return books
                 .Where(b => b.Title.Contains(title, StringComparison.OrdinalIgnoreCase))
                 .ToList();
-
         }
 
         public List<Book> SearchByAuthor(string author)
@@ -97,7 +75,6 @@ namespace LibrarySystem
             return books
                 .Where(b => b.Author.Contains(author, StringComparison.OrdinalIgnoreCase))
                 .ToList();
-
         }
 
         #endregion
@@ -116,7 +93,7 @@ namespace LibrarySystem
 
         #region [SAVE AND READ]
         public void SaveToFile(string filePath)
-        {            
+        {
             var options = new JsonSerializerOptions { WriteIndented = true };
             var json = JsonSerializer.Serialize(books, options);
             File.WriteAllText(filePath, json);
@@ -150,31 +127,7 @@ namespace LibrarySystem
             {
                 Console.WriteLine($"Error loading file: {ex.Message}");
             }
-
         }
         #endregion
-
-        //Playing around with how to setup json. Knacking code is how you learn right?
-
-        /* 
-        public void SaveToFile(string path)
-        {
-        var json = JsonSerializer.Serialize(books);
-        File.WriteAllText(path, json);
-        }
-        
-        public void LoadFromFile(string path)
-        {
-        if (File.Exists(path))
-        {
-        var json = File.ReadAllText(path);
-        books = JsonSerializer.Deserialize<List<Book>>(json);
-        }
-        }*/
-
-        //File.WriteAllText("library.json", JsonSerializer.Serialize(Library));
-
-        //Library lib = JsonSerializer.Deserialize<Library>(File.ReadAllText("library.json"));
-
     }
 }
