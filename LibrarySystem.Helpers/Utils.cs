@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,27 +12,39 @@ namespace LibrarySystem.Helpers
         public static string PromptForInput(string fieldName)
         {
             Console.WriteLine($"{fieldName}: ");
-            return Console.ReadLine();
+            return Console.ReadLine()?.Trim() ?? string.Empty;
         }
 
         #region [ISBN]
-        public static bool IsValidISBN(string isbn)
-        {
-            return isbn.Length == 13 && isbn.All(char.IsDigit);
-        }
+        //public static bool IsValidISBN(string isbn)
+        //{
+
+            //return isbn.Length == 13 && isbn.All(char.IsDigit);
+        //}              
 
         public static string GetValidISBN()
         {
             while (true)
-            {
-                Console.WriteLine("ISBN (13 digits):");
-                string isbn = Console.ReadLine();
+            {                
+                string isbn = PromptForInput("ISBN (13 digits):");
 
-                if (IsValidISBN(isbn))
+                try
                 {
+                    ValidateISBN(isbn);
                     return isbn;
                 }
-                Console.WriteLine("Wrong input! ISBN contains of 13 numbers!");
+                catch (ValidationException ex)
+                {
+                    Console.WriteLine($"[ERROR] {ex.Message}");
+                }                                
+            }
+        }
+
+        public static void ValidateISBN(string isbn)
+        {
+            if (string.IsNullOrWhiteSpace(isbn) || isbn.Length != 13 || !isbn.All(char.IsDigit))
+            {
+                throw new ValidationException("ISBN must be exactly 13 digits");
             }
         }
         #endregion
@@ -61,16 +74,26 @@ namespace LibrarySystem.Helpers
         {
             while (true)
             {
-                ShowGenres();
-                Console.WriteLine("Your choice (1-" + Genres.Count + "): ");
+                ShowGenres();                
+                string input = PromptForInput("Your choice (1-" + Genres.Count + "): ");
 
-                string input = Console.ReadLine();
-
-                if (int.TryParse(input, out int index) && index >= 1 && index <= Genres.Count)
+                try
                 {
-                    return Genres[index - 1];
+                    ValidateGenreSelection(input);
+                    return Genres[int.Parse(input) - 1];
                 }
-                Console.WriteLine("Input should be between 1-6. Try again.");
+                catch (ValidationException ex) 
+                {
+                    Console.WriteLine($"[ERROR] {ex.Message}");
+                }                
+            }
+        }
+
+        public static void ValidateGenreSelection(string input)
+        {
+            if (!int.TryParse(input, out int index) || index < 1 || index > Genres.Count)
+            {
+                throw new ValidationException($"Selection must be between 1 and {Genres.Count}");
             }
         }
         #endregion

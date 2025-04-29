@@ -1,14 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace LibrarySystem.Shared
 {
-    public enum SearchOption
+    public enum SearchOptions
     {
-        Title = 1,
-        Author
+        [Description("Title")]
+        ByTitle = 1,
+
+        [Description("Author")]
+        ByAuthor
     }
 }

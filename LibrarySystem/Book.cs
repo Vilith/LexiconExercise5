@@ -7,28 +7,57 @@ using System.Threading.Tasks;
 
 namespace LibrarySystem
 {
-    internal class Book
+    //internal class Book
+    //{
+        //public string Title { get; set; }
+        //public string Author { get; set; }
+        //public string ISBN { get; set; }                
+        //public string Category { get; set; }
+        //public bool Available { get; set; }
+                       
+    //}
+    public class Book
     {
         public string Title { get; set; }
-
-        public string Author { get; set; }
-
-        public string ISBN { get; set; }
-        //public string ISBN
-        //{
-        //    get => isbn;
-        //    set
-        //    {
-        //        if (value.Length != 13 || !value.All(char.IsDigit))
-        //            throw new ArgumentException("Wrong input! ISBN contains of 13 numbers!");
-        //        isbn = value;
-        //    }
-        //}
-        
+        public string Author { get; set;  }
+        public string ISBN { get; init; }
         public string Category { get; set; }
         public bool Available { get; set; }
 
+        public Book(string title, string author, string isbn, string category)
+        {
+            Title = ValidateNotEmpty(title, nameof(Title));
+            Author = ValidateNotEmpty(author, nameof(Author));
+            ISBN = ValidateISBN(isbn);
+            Category = ValidateNotEmpty(category, nameof(Category));
+            Available = true;
+        }
 
-        
-    }    
+        public void MarkAsUnavailable() => Available = false;
+        public void MarkAsAvailable() => Available = true;
+
+        public override string ToString()
+        {
+            return $"{Title} by {Author} | ISBN: {ISBN} | Category: {Category} | " +
+                   $"Status: {(Available ? "Available" : "Unavailable")}";
+        }
+
+        #region [Validation]
+        private static string ValidateNotEmpty(string input, string fieldName)
+        {
+            if (string.IsNullOrWhiteSpace(input))
+                throw new ArgumentException($"{fieldName} cannot be empty.", fieldName);
+            return input.Trim();
+        }
+
+        private static string ValidateISBN(string isbn)
+        {
+            if (string.IsNullOrWhiteSpace(isbn) || isbn.Length != 13 || !isbn.All(char.IsDigit))
+                throw new ArgumentException("ISBN must be exactly 13 digits.", nameof(ISBN));
+            return isbn;
+        }
+
+        public Book() { }
+        #endregion
+    }
 }

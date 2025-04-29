@@ -16,7 +16,7 @@ namespace LibrarySystem.Tests
             
             var result = MenuHelper.GetInvalidText();
                         
-            Assert.Equal($"{Environment.NewLine}Input should be a number between 1-6! * for quitting", result);
+            Assert.Equal($"{Environment.NewLine}Input should be a number corresponding to a menu option. Use '*' to quit.", result);
             
         }
 

@@ -26,24 +26,38 @@ namespace LibrarySystem
         #endregion
 
         #region [REMOVE BOOK]
-        public void RemoveBookByISBN(string isbn)
+        public void RemoveBookByISBN(string isbn) => 
+            RemoveBook(b => b.ISBN == isbn, 
+                "Found no book with provided ISBBN");
+        //{
+        //var bookToRemove = books.FirstOrDefault(b => b.ISBN == isbn);
+
+        //if (bookToRemove == null)
+        //throw new InvalidOperationException("Found no book with provided ISBN.");
+
+        //books.Remove(bookToRemove);
+        //}
+
+        public void RemoveBookByTitle(string title) =>
+            RemoveBook(b => b.Title.Equals(title, StringComparison.OrdinalIgnoreCase), 
+                "Found no book with provided Title");
+        //{
+        //var bookToRemove = books.FirstOrDefault(b => b.Title.Equals(title, StringComparison.OrdinalIgnoreCase));
+
+        //if (bookToRemove == null)
+        //throw new InvalidOperationException("Found no book with provided Title");
+
+        //books.Remove(bookToRemove);
+        //}
+
+        private void RemoveBook(Func<Book, bool> predicate, string errorMessage)
         {
-            var bookToRemove = books.FirstOrDefault(b => b.ISBN == isbn);
+            var book = books.FirstOrDefault(predicate);
 
-            if (bookToRemove == null)
-                throw new InvalidOperationException("Found no book with provided ISBN.");
+            if (book == null)
+                throw new InvalidOperationException(errorMessage);
 
-            books.Remove(bookToRemove);
-        }
-
-        public void RemoveBookByTitle(string title)
-        {
-            var bookToRemove = books.FirstOrDefault(b => b.Title.Equals(title, StringComparison.OrdinalIgnoreCase));
-
-            if (bookToRemove == null)
-                throw new InvalidOperationException("Found no book with provided Title");
-
-            books.Remove(bookToRemove);
+            books.Remove(book);
         }
         #endregion
 
@@ -63,19 +77,24 @@ namespace LibrarySystem
         #endregion
 
         #region [SEARCH]
-        public List<Book> SearchByTitle(string title)
-        {
-            return books
-                .Where(b => b.Title.Contains(title, StringComparison.OrdinalIgnoreCase))
-                .ToList();
-        }
+        public List<Book> SearchByTitle(string title) =>
+            SearchBooks(b => b.Title.Contains(title, StringComparison.OrdinalIgnoreCase));
+        //{
+        //return books
+        //.Where(b => b.Title.Contains(title, StringComparison.OrdinalIgnoreCase))
+        //.ToList();
+        //}
 
-        public List<Book> SearchByAuthor(string author)
-        {
-            return books
-                .Where(b => b.Author.Contains(author, StringComparison.OrdinalIgnoreCase))
-                .ToList();
-        }
+        public List<Book> SearchByAuthor(string author) =>
+            SearchBooks(b => b.Author.Contains(author, StringComparison.OrdinalIgnoreCase));
+        //{
+        //return books
+        //.Where(b => b.Author.Contains(author, StringComparison.OrdinalIgnoreCase))
+        //.ToList();
+        //}
+
+        private List<Book> SearchBooks(Func<Book, bool> predicate) =>
+            books.Where(predicate).ToList();
 
         #endregion
 
@@ -88,6 +107,7 @@ namespace LibrarySystem
                 throw new InvalidOperationException("No book could be found with provided ISBN.");
 
             book.Available = !book.Available;
+            
         }
         #endregion
 
@@ -97,7 +117,8 @@ namespace LibrarySystem
             var options = new JsonSerializerOptions { WriteIndented = true };
             var json = JsonSerializer.Serialize(books, options);
             File.WriteAllText(filePath, json);
-            Console.WriteLine("File saved!");
+
+            Console.WriteLine("File saved!");            
         }
 
         public void LoadFromFile(string filePath)

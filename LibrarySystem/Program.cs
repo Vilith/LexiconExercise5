@@ -3,12 +3,12 @@
     internal class Program
     {
         static void Main(string[] args)
-        {
-           
+        {           
             //Instansiating Library here for cleaner code.
             //Also for the purpose of making testing more accessible
             
             var library = new Library();
+            library.LoadFromFile("library.json");
             var menu = new Menu(library);
 
             #region [REQUIREMENT LIST]
