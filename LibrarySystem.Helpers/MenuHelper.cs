@@ -16,6 +16,8 @@ namespace LibrarySystem.Helpers
         #region [MENUS]
         public static string GetEnumDescription(Enum value)
         {
+            if (value == null) return string.Empty;
+
             var field = value.GetType().GetField(value.ToString());
             var attribute = field?.GetCustomAttribute<DescriptionAttribute>();
 
