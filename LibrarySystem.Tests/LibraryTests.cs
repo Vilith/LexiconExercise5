@@ -14,7 +14,7 @@ namespace LibrarySystem.Tests
         [Fact]
         public void AddBook_ShouldAddBookToLibrary()
         {
-            
+
             string title = "Title";
             string author = "Author";
             string isbn = "1234567890123";
@@ -71,7 +71,7 @@ namespace LibrarySystem.Tests
 
             // Assert
             var found = library.SearchByISBN("1234567891234");
-            Assert.Null(found);            
+            Assert.Null(found);
         }
 
 
@@ -85,9 +85,9 @@ namespace LibrarySystem.Tests
             var ex = Assert.Throws<InvalidOperationException>(() =>
                 library.RemoveBookByISBN("0000000000000"));
 
-            Assert.Equal("Found no book with provided ISBBN", ex.Message);
+            Assert.Equal("Found no book with provided ISBN", ex.Message);
         }
-        
+
 
         [Fact]
         public void SearchByTitle_ShouldReturnCorrectBook()
@@ -115,12 +115,14 @@ namespace LibrarySystem.Tests
             var library = new Library();
             library.AddBook(new Book("Zebra", "Author A", "1234567890001", "A"));
             library.AddBook(new Book("Alpha", "Author B", "1234567890002", "B"));
+            library.AddBook(new Book("Gamma", "Author C", "1234567890003", "C"));
+            library.AddBook(new Book("Omega", "Author D", "1234567890004", "D"));
 
             // Act
             var sorted = library.GetAllBooksSortedBySelection(option);
 
             // Assert
-            Assert.Equal(2, sorted.Count);
+            Assert.Equal(4, sorted.Count);
         }
 
     }

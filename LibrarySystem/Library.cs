@@ -25,7 +25,7 @@ namespace LibrarySystem
         #region [REMOVE BOOK]
         public void RemoveBookByISBN(string isbn) => 
             RemoveBook(b => b.ISBN == isbn, 
-                "Found no book with provided ISBBN");
+                "Found no book with provided ISBN");
         
         public void RemoveBookByTitle(string title) =>
             RemoveBook(b => b.Title.Equals(title, StringComparison.OrdinalIgnoreCase), 
@@ -118,9 +118,13 @@ namespace LibrarySystem
                     Console.WriteLine("File empty?");
                 }
             }
-            catch (Exception ex)
+            catch (IOException ex)
             {
                 Console.WriteLine($"Error loading file: {ex.Message}");
+            }
+            catch (JsonException ex)
+            {
+                Console.WriteLine($"File format error: {ex.Message}");
             }
         }
         #endregion

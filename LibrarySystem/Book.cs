@@ -25,7 +25,7 @@ namespace LibrarySystem
             Available = true; //When book is added the book is set to as available.
         }
 
-        //Used for quick access to unittests (Guess i shouldn't do it like this)
+        //Used for quick access to testing (Guess i shouldn't do it like this)
         public void MarkAsUnavailable() => Available = false;
         public void MarkAsAvailable() => Available = true;
 
@@ -36,6 +36,9 @@ namespace LibrarySystem
         }
 
         #region [Validation] //Methods for Validating
+        //Empty method supposedly used for loading JSON file.
+        public Book() { }
+
         private static string ValidateNotEmpty(string input, string fieldName)
         {
             if (string.IsNullOrWhiteSpace(input))
@@ -48,10 +51,7 @@ namespace LibrarySystem
             if (string.IsNullOrWhiteSpace(isbn) || isbn.Length != 13 || !isbn.All(char.IsDigit))
                 throw new ArgumentException("ISBN must be exactly 13 digits.", nameof(ISBN));
             return isbn;
-        }
-
-        //Empty method supposedly used for loading JSON file.
-        public Book() { }
+        }        
         #endregion
     }
 }
