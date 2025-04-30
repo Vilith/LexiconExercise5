@@ -1,4 +1,4 @@
-﻿using LibrarySystem.Shared;
+﻿using LibrarySystem.Shared.Enums;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
 using static LibrarySystem.Menu;
@@ -11,12 +11,9 @@ namespace LibrarySystem
 
         #region [ADD BOOK]
         public void AddBook(Book book)
-        {
-            /*Lambda so this is basically:
-
-                foreach (Book b in books)
-                { if (b.ISBN == book.ISBN)
-                throw new InvalidOperationException("Book with this ISBN already exists."); */
+        {   
+            if (book == null) 
+                throw new ArgumentNullException(nameof(book), "Book cannot be null");
 
             if (books.Any(b => b.ISBN == book.ISBN))
                 throw new InvalidOperationException("Book with this ISBN already exists.");
@@ -29,27 +26,11 @@ namespace LibrarySystem
         public void RemoveBookByISBN(string isbn) => 
             RemoveBook(b => b.ISBN == isbn, 
                 "Found no book with provided ISBBN");
-        //{
-        //var bookToRemove = books.FirstOrDefault(b => b.ISBN == isbn);
-
-        //if (bookToRemove == null)
-        //throw new InvalidOperationException("Found no book with provided ISBN.");
-
-        //books.Remove(bookToRemove);
-        //}
-
+        
         public void RemoveBookByTitle(string title) =>
             RemoveBook(b => b.Title.Equals(title, StringComparison.OrdinalIgnoreCase), 
                 "Found no book with provided Title");
-        //{
-        //var bookToRemove = books.FirstOrDefault(b => b.Title.Equals(title, StringComparison.OrdinalIgnoreCase));
-
-        //if (bookToRemove == null)
-        //throw new InvalidOperationException("Found no book with provided Title");
-
-        //books.Remove(bookToRemove);
-        //}
-
+        
         private void RemoveBook(Func<Book, bool> predicate, string errorMessage)
         {
             var book = books.FirstOrDefault(predicate);
@@ -79,20 +60,13 @@ namespace LibrarySystem
         #region [SEARCH]
         public List<Book> SearchByTitle(string title) =>
             SearchBooks(b => b.Title.Contains(title, StringComparison.OrdinalIgnoreCase));
-        //{
-        //return books
-        //.Where(b => b.Title.Contains(title, StringComparison.OrdinalIgnoreCase))
-        //.ToList();
-        //}
-
+        
         public List<Book> SearchByAuthor(string author) =>
             SearchBooks(b => b.Author.Contains(author, StringComparison.OrdinalIgnoreCase));
-        //{
-        //return books
-        //.Where(b => b.Author.Contains(author, StringComparison.OrdinalIgnoreCase))
-        //.ToList();
-        //}
 
+        public Book? SearchByISBN(string isbn) =>
+            books.FirstOrDefault(b => b.ISBN == isbn);
+        
         private List<Book> SearchBooks(Func<Book, bool> predicate) =>
             books.Where(predicate).ToList();
 

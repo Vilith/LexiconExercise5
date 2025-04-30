@@ -5,10 +5,9 @@
         static void Main(string[] args)
         {           
             //Instansiating Library here for cleaner code.
-            //Also for the purpose of making testing more accessible
-            
+            //Also for the purpose of making testing more accessible            
             var library = new Library();
-            library.LoadFromFile("library.json");
+            //library.LoadFromFile("library.json"); //Loading saved JSON when program starts.
             var menu = new Menu(library);
 
             #region [REQUIREMENT LIST]

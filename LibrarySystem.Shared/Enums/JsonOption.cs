@@ -5,8 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LibrarySystem.Shared
+namespace LibrarySystem.Shared.Enums
 {
+    [Description("JSON Menu")]
     public enum JsonOption
     {
         [Description("Save")]

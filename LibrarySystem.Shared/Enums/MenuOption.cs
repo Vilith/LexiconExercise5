@@ -1,7 +1,8 @@
 ﻿using System.ComponentModel;
 
-namespace LibrarySystem.Shared
+namespace LibrarySystem.Shared.Enums
 {
+    [Description("Main Menu")]
     public enum MenuOption
     {
         [Description("Add Book")]

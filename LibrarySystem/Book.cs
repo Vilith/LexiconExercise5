@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LibrarySystem.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
@@ -6,18 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace LibrarySystem
-{
-    //internal class Book
-    //{
-        //public string Title { get; set; }
-        //public string Author { get; set; }
-        //public string ISBN { get; set; }                
-        //public string Category { get; set; }
-        //public bool Available { get; set; }
-                       
-    //}
+{    
     public class Book
-    {
+    {        
         public string Title { get; set; }
         public string Author { get; set;  }
         public string ISBN { get; init; }
@@ -25,14 +17,15 @@ namespace LibrarySystem
         public bool Available { get; set; }
 
         public Book(string title, string author, string isbn, string category)
-        {
-            Title = ValidateNotEmpty(title, nameof(Title));
+        {            
+            Title = ValidateNotEmpty(title, nameof(Title));         
             Author = ValidateNotEmpty(author, nameof(Author));
             ISBN = ValidateISBN(isbn);
             Category = ValidateNotEmpty(category, nameof(Category));
-            Available = true;
+            Available = true; //When book is added the book is set to as available.
         }
 
+        //Used for quick access to unittests (Guess i shouldn't do it like this)
         public void MarkAsUnavailable() => Available = false;
         public void MarkAsAvailable() => Available = true;
 
@@ -42,7 +35,7 @@ namespace LibrarySystem
                    $"Status: {(Available ? "Available" : "Unavailable")}";
         }
 
-        #region [Validation]
+        #region [Validation] //Methods for Validating
         private static string ValidateNotEmpty(string input, string fieldName)
         {
             if (string.IsNullOrWhiteSpace(input))
@@ -57,6 +50,7 @@ namespace LibrarySystem
             return isbn;
         }
 
+        //Empty method supposedly used for loading JSON file.
         public Book() { }
         #endregion
     }

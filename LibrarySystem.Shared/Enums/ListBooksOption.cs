@@ -5,8 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LibrarySystem.Shared
+namespace LibrarySystem.Shared.Enums
 {
+    [Description("List Books Menu")]
     public enum ListBooksOption
     {
         [Description("Title")]

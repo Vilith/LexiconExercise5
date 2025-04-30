@@ -8,20 +8,14 @@ using System.Threading.Tasks;
 namespace LibrarySystem.Helpers
 {
     public static class Utils
-    {        
+    {   
         public static string PromptForInput(string fieldName)
         {
-            Console.WriteLine($"{fieldName}: ");
-            return Console.ReadLine()?.Trim() ?? string.Empty;
+        Console.WriteLine($"{fieldName}: ");
+        return Console.ReadLine()?.Trim() ?? string.Empty;
         }
-
-        #region [ISBN]
-        //public static bool IsValidISBN(string isbn)
-        //{
-
-            //return isbn.Length == 13 && isbn.All(char.IsDigit);
-        //}              
-
+        
+        #region [ISBN]        
         public static string GetValidISBN()
         {
             while (true)
@@ -97,10 +91,6 @@ namespace LibrarySystem.Helpers
             }
         }
         #endregion
-
-
-        //Validating inputs here
-
-
+                
     }
 }

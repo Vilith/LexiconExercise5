@@ -5,8 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LibrarySystem.Shared
+namespace LibrarySystem.Shared.Enums
 {
+    [Description("Remove Book Menu")]
     public enum RemoveBookOption
     {
         [Description("Return By ISBN")]
