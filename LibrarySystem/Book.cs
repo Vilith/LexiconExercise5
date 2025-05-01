@@ -25,9 +25,11 @@ namespace LibrarySystem
             Available = true; //When book is added the book is set to as available.
         }
 
+        #region [TESTING]
         //Used for quick access to testing (Guess i shouldn't do it like this)
         public void MarkAsUnavailable() => Available = false;
         public void MarkAsAvailable() => Available = true;
+        #endregion
 
         public override string ToString()
         {

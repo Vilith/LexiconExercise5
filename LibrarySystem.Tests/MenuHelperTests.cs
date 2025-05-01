@@ -12,6 +12,7 @@ namespace LibrarySystem.Tests
         //ASSERT
         #endregion
 
+        [Trait("MenuHelper", "Menu")]
         [Theory]
         [InlineData(typeof(MenuOption), "Main Menu")]
         [InlineData(typeof(ListBooksOption), "List Books Menu")]
@@ -19,18 +20,15 @@ namespace LibrarySystem.Tests
         [InlineData(typeof(JsonOption), "JSON Menu")]
         [InlineData(typeof(RemoveBookOption), "Return Book Menu")]        
         public void ShowEnumMenu_ShouldPrintExpectedOptions(Type enumType, string menuTitle)
-        {
-            // Arrange
+        {            
             using var sw = new StringWriter();
             Console.SetOut(sw);
-
-            // Act
+                        
             typeof(MenuHelper)
                 .GetMethod("ShowEnumMenu")!
                 .MakeGenericMethod(enumType)
                 .Invoke(null, new object[] { menuTitle });            
-
-            // Assert
+                        
             var output = sw.ToString();
             Assert.Contains(menuTitle.ToUpper(), output);
 
@@ -42,27 +40,28 @@ namespace LibrarySystem.Tests
             }            
         }
 
+        [Trait("MenuHelper", "Menu")]
         [Theory]
         [InlineData(typeof(SearchOptions), "Search Menu", "1. Title")]
         [InlineData(typeof(ListBooksOption), "List Books Menu", "1. Title")]
         public void ShowEnumMenu_ShouldIncludeDescriptions(Type enumType, string menuTitle, string expectedLine)
-        {
-            // Arrange
+        {            
             using var sw = new StringWriter();
             Console.SetOut(sw);
 
-            // Act
+            
             typeof(MenuHelper)
                 .GetMethod("ShowEnumMenu")!
                 .MakeGenericMethod(enumType)
                 .Invoke(null, new object[] { menuTitle });
 
-            // Assert            
+            
             var output = sw.ToString();
             Assert.Contains(menuTitle.ToUpper(), output);
             Assert.Contains(expectedLine, output);          
         }
 
+        [Trait("MenuHelper", "Menu")]
         [Fact]
         public void ShowMainMenu_ShouldDisplayMainMenu()
         {
@@ -76,6 +75,7 @@ namespace LibrarySystem.Tests
             Assert.Contains("1. Add Book", output);
         }
 
+        [Trait("MenuHelper", "Text")]
         [Fact]
         public void GetInvalidText_ShouldReturnExpectedMessage()
         {
@@ -86,10 +86,11 @@ namespace LibrarySystem.Tests
             
         }
 
+        [Trait("MenuHelper", "Menu")]
         [Fact]
         public void QuitConstant_ShouldBeExpectedValue()
         {
-            Assert.Equal("*", MenuHelper.QUIT); // eller vad du har satt
+            Assert.Equal("*", MenuHelper.QUIT);
         }
     }
 }

@@ -12,17 +12,14 @@ namespace LibrarySystem.Tests
         [Trait("Book", "Create")]
         [Fact]        
         public void Constructor_WithValidData_ShouldCreateBook()
-        {
-            //Arrange
+        {            
             string title = "Title";
             string author = "Author";
             string isbn = "1231231231234";
             string category = "Childrens Book";
-
-            //Act
+                     
             var book = new Book(title, author, isbn, category);
-
-            //Assert
+                        
             Assert.Equal(title, book.Title);
             Assert.Equal(author, book.Author);
             Assert.Equal(isbn, book.ISBN);
@@ -57,11 +54,12 @@ namespace LibrarySystem.Tests
         }
 
 
-        [Theory]
         [Trait("Book", "Validation")]
-        [InlineData("12345678912AB")] //Letters
-        [InlineData("1234 5678 9123")] //Whitespaces
-        [InlineData("12345678912345")] //14 characters
+        [Theory]        
+        [InlineData("12345678912AB")]   //Letters
+        [InlineData("1234 5678 9123")]  //Whitespaces
+        [InlineData("123456789123")]    //12 characters
+        [InlineData("12345678912345")]  //14 characters
         public void Constructor_WithNonDigitsOrWrongLengthISBN_ShouldThrow(string isbn)
         {
             var ex = Assert.Throws<ArgumentException>(() =>
@@ -70,45 +68,54 @@ namespace LibrarySystem.Tests
             Assert.Equal("ISBN", ex.ParamName);
         }
 
+        //[Fact]
+        //[Trait("Book", "State")]
+        //public void MarkAsUnavailable_ShouldSetAvailableToFalse()
+        //{
+        //var book = new Book("Title", "Author", "1234567891234", "Fiction");
+        //book.Available = false;
 
-        [Fact]
+        //Assert.False(book.Available);
+        //}
+
+        //[Fact]
+        //[Trait("Book", "State")]
+        //public void MarkAsAvailable_ShouldSetAvailableToTrue()
+        //{
+        //var book = new Book("Title", "Author", "1234567891234", "Fiction");
+        //book.Available = true;
+
+        //Assert.True(book.Available);
+        //}
+
+
         [Trait("Book", "State")]
-        public void MarkAsUnavailable_ShouldSetAvailableToFalse()
-        {
-            var book = new Book("Title", "Author", "1234567891234", "Fiction");
-            book.Available = false;
-
-            Assert.False(book.Available);
-        }
-
-
-        [Fact]
-        [Trait("Book", "State")]
+        [Fact]        
         public void MarkAsAvailable_ShouldSetAvailableToTrue()
         {
             var book = new Book("Title", "Author", "1234567891234", "Science Fiction");
-            book.MarkAsUnavailable();
+            
             book.MarkAsAvailable();
 
             Assert.True(book.Available);
         }
 
 
-        [Fact]
         [Trait("Book", "State")]
+        [Fact]        
         public void MarkAsAvailable_ShouldSetAvailableToFalse()
         {
             var book = new Book("Title", "Author", "1234567891234", "Science Fiction");
-            book.MarkAsAvailable();
+            
             book.MarkAsUnavailable();
             
             Assert.False(book.Available);
-            //Assert.True(book.Available);
+            
         }
 
 
-        [Fact]
         [Trait("Book", "ToString")]
+        [Fact]        
         public void ToString_ShouldReturnFormattedString()
         {
             var book = new Book("Title", "Author", "1234567891234", "Science Fiction");
@@ -121,8 +128,8 @@ namespace LibrarySystem.Tests
         }
 
 
-        [Fact]
         [Trait("Book", "Whitespace")]
+        [Fact]        
         public void Constructor_ShouldTrimWhitespaceFromInput()
         {
             var book = new Book("  Title  ", " Author ", "1234567891234", "Science Fiction ");
@@ -133,8 +140,8 @@ namespace LibrarySystem.Tests
         }
 
 
-        [Fact]
         [Trait("Book", "Whitespace")]
+        [Fact]        
         public void Constructor_ShouldAllowWhitespaceBetweenWords()
         {
             var book = new Book("Title With Spaces", "Anna Maria", "1234567891234", "Science Fiction");

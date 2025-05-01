@@ -170,10 +170,10 @@ namespace LibrarySystem
 
                 foreach (var book in sortedBooks)
                 {
-                    Console.ForegroundColor = ConsoleColor.DarkRed; //TODO - Remove before done.
+                    Console.ForegroundColor = ConsoleColor.DarkRed; //Changes color of output to DarkRed
                     Console.WriteLine($"{book.Title,-30} {book.Author,-20} {book.ISBN,-15} " +
                         $"{book.Category,-15} {book.Available,-10}");
-                    Console.ResetColor(); //TODO - Remove before done.
+                    Console.ResetColor(); //Clears the colorpalette to normal
                 }
             }
             while (true);

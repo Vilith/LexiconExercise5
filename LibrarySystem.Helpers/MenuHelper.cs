@@ -54,9 +54,7 @@ namespace LibrarySystem.Helpers
         {
             return ($"{Environment.NewLine}Invalid input. Please try again.");
         }
-
-        //Remember to clean up and refactor.
-        //Placeholder for invalid input.
+        
         public static string GetInvalidText()
         {
             return ($"{Environment.NewLine}Input should be a number corresponding to a menu option. Use '*' to quit.");
