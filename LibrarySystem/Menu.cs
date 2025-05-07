@@ -11,12 +11,16 @@ namespace LibrarySystem
         private Library bookShelf;
         #endregion
 
+        //The Menu-constructor takes a Library object and saves it internally as bookShelf
+        //Afterwards it starts the Main Menu with RunMenu();
         public Menu(Library library)
         {
             bookShelf = library;
             RunMenu();
         }
 
+
+        //Code below is only reached and visible within this class
         #region [MENU]
         private void RunMenu()
         {

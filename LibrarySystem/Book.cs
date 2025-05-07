@@ -16,13 +16,15 @@ namespace LibrarySystem
         public string Category { get; set; }
         public bool Available { get; set; }
 
+        //Constructor that creates a book and validates the fields.
+        //When every field is validated it sets the book as available.
         public Book(string title, string author, string isbn, string category)
         {            
             Title = ValidateNotEmpty(title, nameof(Title));         
             Author = ValidateNotEmpty(author, nameof(Author));
             ISBN = ValidateISBN(isbn);
             Category = ValidateNotEmpty(category, nameof(Category));
-            Available = true; //When book is added the book is set to as available.
+            Available = true; //When book is added the book is set to as available
         }
 
         #region [TESTING]
@@ -38,9 +40,11 @@ namespace LibrarySystem
         }
 
         #region [Validation] //Methods for Validating
-        //Empty method supposedly used for loading JSON file.
+        //Empty method supposedly used for loading JSON file
         public Book() { }
 
+        //Validating that the input isn't null, empty or only whitespace
+        //Trims and returns the input if valid
         private static string ValidateNotEmpty(string input, string fieldName)
         {
             if (string.IsNullOrWhiteSpace(input))
@@ -48,6 +52,7 @@ namespace LibrarySystem
             return input.Trim();
         }
 
+        //Validating that ISBN is exactly 13 numbers
         private static string ValidateISBN(string isbn)
         {
             if (string.IsNullOrWhiteSpace(isbn) || isbn.Length != 13 || !isbn.All(char.IsDigit))

@@ -10,6 +10,8 @@ namespace LibrarySystem
         private List<Book> books = new();
 
         #region [ADD BOOK]
+        //Adds a book to the library after confirming:
+        //Book isn't null or already have a book with based on the same ISBN
         public void AddBook(Book book)
         {   
             if (book == null) 
@@ -23,6 +25,8 @@ namespace LibrarySystem
         #endregion
 
         #region [REMOVE BOOK]
+        //Removes a book based on ISBN or title
+        //If no book is found it will throw an exception
         public void RemoveBookByISBN(string isbn) => 
             RemoveBook(b => b.ISBN == isbn, 
                 "Found no book with provided ISBN");
@@ -30,7 +34,9 @@ namespace LibrarySystem
         public void RemoveBookByTitle(string title) =>
             RemoveBook(b => b.Title.Equals(title, StringComparison.OrdinalIgnoreCase), 
                 "Found no book with provided Title");
-        
+
+        //Method that tries to find and remove a book based on a given condition (predicate)
+        //If no book matches the condition it throws an InvalidOperationException with a provided error message        
         private void RemoveBook(Func<Book, bool> predicate, string errorMessage)
         {
             var book = books.FirstOrDefault(predicate);
@@ -43,6 +49,7 @@ namespace LibrarySystem
         #endregion
 
         #region [LIST BOOK]
+        //List books sorted by users selection (The sortingoptions can be found in the enum : SortOption
         public List<Book> GetAllBooksSortedBySelection(SortOption option)
         {
             return option switch
@@ -58,6 +65,7 @@ namespace LibrarySystem
         #endregion
 
         #region [SEARCH]
+        //Search for books containing the given string
         public List<Book> SearchByTitle(string title) =>
             SearchBooks(b => b.Title.Contains(title, StringComparison.OrdinalIgnoreCase));
         
@@ -73,6 +81,8 @@ namespace LibrarySystem
         #endregion
 
         #region [AVAILABLE OR NOT]
+        //Changes the status of a book with given ISBN
+        //If book isn't found it will throw an exception
         public void AvailableOrNot(string isbn)
         {
             var book = books.FirstOrDefault(b => b.ISBN == isbn); ;
@@ -86,6 +96,7 @@ namespace LibrarySystem
         #endregion
 
         #region [SAVE AND READ]
+        //Save all books to library.json (indentated)
         public void SaveToFile(string filePath)
         {
             var options = new JsonSerializerOptions { WriteIndented = true };
@@ -95,6 +106,8 @@ namespace LibrarySystem
             Console.WriteLine("File saved!");            
         }
 
+        //Read books from json-file and replaces the current list
+        //Validating if the file exists or not
         public void LoadFromFile(string filePath)
         {
             if (!File.Exists(filePath))

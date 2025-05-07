@@ -16,6 +16,7 @@ namespace LibrarySystem.Helpers
         }
         
         #region [ISBN]        
+        //As long as input for ISBN isn't correct it will loop until a value of 13 numbers is entered
         public static string GetValidISBN()
         {
             while (true)
@@ -34,6 +35,7 @@ namespace LibrarySystem.Helpers
             }
         }
 
+        //Validating that ISBN is 13 numbers
         public static void ValidateISBN(string isbn)
         {
             if (string.IsNullOrWhiteSpace(isbn) || isbn.Length != 13 || !isbn.All(char.IsDigit))
@@ -44,6 +46,7 @@ namespace LibrarySystem.Helpers
         #endregion
 
         #region [Category]
+        //List of predefined genres for the book(s)
         public static readonly List<string> Genres = new()
         {
             "Novel",
@@ -54,6 +57,7 @@ namespace LibrarySystem.Helpers
             "Childrens Book"
         };
 
+        //Displays the list of available genres to the console
         public static void ShowGenres()
         {
             Console.WriteLine("Category:");
@@ -64,6 +68,8 @@ namespace LibrarySystem.Helpers
             }
         }
 
+        //Allows the user to select a genre from the list
+        //As long as the input isn't valid it will prompt for a valid input
         public static string SelectGenre()
         {
             while (true)
@@ -83,6 +89,7 @@ namespace LibrarySystem.Helpers
             }
         }
 
+        //Validation of the input for selecting genre
         public static void ValidateGenreSelection(string input)
         {
             if (!int.TryParse(input, out int index) || index < 1 || index > Genres.Count)

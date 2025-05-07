@@ -97,7 +97,7 @@ namespace LibrarySystem.Tests
             
             book.MarkAsAvailable();
 
-            Assert.True(book.Available);
+            Assert.True(book.Available);            
         }
 
 
